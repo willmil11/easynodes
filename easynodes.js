@@ -119,6 +119,8 @@ module.exports = {
         "enableverbose": function () {
             module.exports.system.checkinit();
             if (module.exports.system.verbose == true) {
+                //Warn user
+                module.exports.system.verboselog("Warning: Verbose is already enabled");
                 return module.exports.system.prefix + " Verbose is already enabled";
             }
             module.exports.system.verbose = true;
@@ -126,6 +128,8 @@ module.exports = {
         "disableverbose": function () {
             module.exports.system.checkinit();
             if (module.exports.system.verbose == false) {
+                //Warn user
+                module.exports.system.verboselog("Warning: Verbose is already disabled");
                 return module.exports.system.prefix + " Verbose is already disabled";
             }
             module.exports.system.verbose = false;
@@ -817,6 +821,9 @@ module.exports = {
                             ws.on("message", function (message) {
                                 eventcallback(`${message}`);
                             });
+                        },
+                        "close": function () {
+                            ws.close();
                         }
                     });
                 })
@@ -836,6 +843,7 @@ module.exports = {
         },
         "read": {
             "sync": function (path) {
+                module.exports.system.checkinit();
                 var data;
                 try {
                     data = module.exports.system.modules.fs.readFileSync(path);
@@ -846,6 +854,7 @@ module.exports = {
                 return data;
             },
             "async": function (path, callback) {
+                module.exports.system.checkinit();
                 if (!(typeof callback == "function")) {
                     throw module.exports.system.prefix + " Invalid callback value, must be a function"
                 }
@@ -870,6 +879,7 @@ module.exports = {
         "write": {
             "write": {
                 "sync": function (path, data) {
+                    module.exports.system.checkinit();
                     try {
                         module.exports.system.modules.fs.writeFileSync(path, data);
                     }
@@ -878,6 +888,7 @@ module.exports = {
                     }
                 },
                 "async": function (path, data, callback) {
+                    module.exports.system.checkinit();
                     if (!(typeof callback == "function")) {
                         throw module.exports.system.prefix + " Invalid callback value, must be a function"
                     }
@@ -901,6 +912,7 @@ module.exports = {
             },
             "add": {
                 "sync": function (path, data) {
+                    module.exports.system.checkinit();
                     try {
                         module.exports.system.modules.fs.appendFileSync(path, data);
                     }
@@ -909,6 +921,7 @@ module.exports = {
                     }
                 },
                 "async": function (path, data, callback) {
+                    module.exports.system.checkinit();
                     if (!(typeof callback == "function")) {
                         throw module.exports.system.prefix + " Invalid callback value, must be a function"
                     }
@@ -933,6 +946,7 @@ module.exports = {
         },
         "delete": {
             "sync": function (path) {
+                module.exports.system.checkinit();
                 //Try to check if is a dir if a dir delete recursively else delete file
                 var folder = false;
                 try {
@@ -960,6 +974,7 @@ module.exports = {
                 }
             },
             "async": function (path, callback) {
+                module.exports.system.checkinit();
                 if (!(typeof callback == "function")) {
                     throw module.exports.system.prefix + " Invalid callback value, must be a function"
                 }
@@ -1007,6 +1022,7 @@ module.exports = {
         },
         "copy": {
             "sync": function (path, dest) {
+                module.exports.system.checkinit();
                 //Check if path is a dir or a file
                 var folder = false;
                 try{
@@ -1034,6 +1050,7 @@ module.exports = {
                 }
             },
             "async": function (path, dest, callback) {
+                module.exports.system.checkinit();
                 if (!(typeof callback == "function")) {
                     throw module.exports.system.prefix + " Invalid callback value, must be a function"
                 }
@@ -1081,6 +1098,7 @@ module.exports = {
         },
         "move": {
             "sync": function (path, dest) {
+                module.exports.system.checkinit();
                 try{
                     module.exports.system.modules.fs.moveSync(path, dest);
                 }
@@ -1090,6 +1108,7 @@ module.exports = {
                 }
             },
             "async": function (path, dest, callback) {
+                module.exports.system.checkinit();
                 if (!(typeof callback == "function")) {
                     throw module.exports.system.prefix + " Invalid callback value, must be a function"
                 }
@@ -1114,6 +1133,7 @@ module.exports = {
         "create": {
             "folder": {
                 "sync": function (path) {
+                    module.exports.system.checkinit();
                     //Check if path already exists
                     if (module.exports.system.modules.fs.existsSync(path)) {
                         module.exports.system.verboselog("Warning: folder already exists, ignoring folder creation");
@@ -1128,6 +1148,7 @@ module.exports = {
                     }
                 },
                 "async": function (path, callback) {
+                    module.exports.system.checkinit();
                     if (!(typeof callback == "function")) {
                         throw module.exports.system.prefix + " Invalid callback value, must be a function"
                     }
@@ -1156,6 +1177,7 @@ module.exports = {
             },
             "file": {
                 "sync": function (path, data) {
+                    module.exports.system.checkinit();
                     if (module.exports.system.modules.fs.existsSync(path)) {
                         module.exports.system.verboselog("Warning: file already exists, ignoring file creation");
                         return;
@@ -1171,6 +1193,7 @@ module.exports = {
                     }
                 },
                 "async": function (path, data, callback) {
+                    module.exports.system.checkinit();
                     if (data == null){
                         data = "";
                     }
@@ -1203,6 +1226,7 @@ module.exports = {
         },
         "rename": {
             "sync": function (path, dest) {
+                module.exports.system.checkinit();
                 //Check if path is a dir or a file
                 var folder = false;
                 try {
@@ -1230,6 +1254,7 @@ module.exports = {
                 }
             },
             "async": function (path, dest, callback) {
+                module.exports.system.checkinit();
                 if (!(typeof callback == "function")) {
                     throw module.exports.system.prefix + " Invalid callback value, must be a function"
                 }
@@ -1278,6 +1303,7 @@ module.exports = {
         "exists": {
             //Use fs.exists or fs.existsSync
             "sync": function (path) {
+                module.exports.system.checkinit();
                 var exists;
                 try {
                     exists = module.exports.system.modules.fs.existsSync(path);
@@ -1288,6 +1314,7 @@ module.exports = {
                 return exists;
             },
             "async": function (path, callback) {
+                module.exports.system.checkinit();
                 if (!(typeof callback == "function")) {
                     throw module.exports.system.prefix + " Invalid callback value, must be a function"
                 }
@@ -1309,6 +1336,7 @@ module.exports = {
         "getTypeOf": {
             //Use fs.lstatSync to get file type
             "sync": function (path) {
+                module.exports.system.checkinit();
                 var type;
                 try {
                     type = module.exports.system.modules.fs.lstatSync(path).isDirectory();
@@ -1324,6 +1352,7 @@ module.exports = {
                 }
             },
             "async": function (path, callback) {
+                module.exports.system.checkinit();
                 if (!(typeof callback == "function")) {
                     throw module.exports.system.prefix + " Invalid callback value, must be a function"
                 }
@@ -1353,6 +1382,7 @@ module.exports = {
         "getSize": {
             //Use fs.lstatSync to get file size as bytes then put it in the most human readable format
             "sync": function (path) {
+                module.exports.system.checkinit();
                 var size;
                 try {
                     size = module.exports.system.modules.fs.lstatSync(path).size;
@@ -1380,6 +1410,7 @@ module.exports = {
                 return size + sizeunit;
             },
             "async": function (path, callback) {
+                module.exports.system.checkinit();
                 if (!(typeof callback == "function")) {
                     throw module.exports.system.prefix + " Invalid callback value, must be a function"
                 }
@@ -1423,6 +1454,7 @@ module.exports = {
             "asNumber": {
                 //Number must be normal like 777 instead of 33279
                 "sync": function (path) {
+                    module.exports.system.checkinit();
                     var permissions;
                     try {
                         permissions = module.exports.system.modules.fs.lstatSync(path).mode;
@@ -1433,6 +1465,7 @@ module.exports = {
                     return permissions;
                 },
                 "async": function (path, callback) {
+                    module.exports.system.checkinit();
                     if (!(typeof callback == "function")) {
                         throw module.exports.system.prefix + " Invalid callback value, must be a function"
                     }
@@ -1457,6 +1490,7 @@ module.exports = {
             "asString": {
                 //String like "r" or "rw" or "rx" or "rwx" or "w" or "wx" or "x"
                 "sync": function (path) {
+                    module.exports.system.checkinit();
                     var permissions;
                     try {
                         permissions = module.exports.system.modules.fs.lstatSync(path).mode;
@@ -1486,6 +1520,7 @@ module.exports = {
                     return permissionsstring;
                 },
                 "async": function (path, callback) {
+                    module.exports.system.checkinit();
                     if (!(typeof callback == "function")) {
                         throw module.exports.system.prefix + " Invalid callback value, must be a function"
                     }
@@ -1529,6 +1564,7 @@ module.exports = {
         },
         "setPermissions": {
             "sync": function (path, permissions) {
+                module.exports.system.checkinit();
                 try {
                     module.exports.system.modules.fs.chmodSync(path, permissions);
                 }
@@ -1537,6 +1573,7 @@ module.exports = {
                 }
             },
             "async": function (path, permissions, callback) {
+                module.exports.system.checkinit();
                 if (!(typeof callback == "function")) {
                     throw module.exports.system.prefix + " Invalid callback value, must be a function"
                 }
@@ -1557,6 +1594,6 @@ module.exports = {
                     throw module.exports.system.prefix + " Error setting permissions of file \"" + path + "\"";
                 }
             }
-        },
+        }
     }
 }
