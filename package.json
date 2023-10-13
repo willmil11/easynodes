@@ -1,6 +1,6 @@
 {
   "name": "easynodes",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This is a Node.js module that allows you to do things really easily",
   "main": "easynodes.js",
   "scripts": {

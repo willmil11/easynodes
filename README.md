@@ -1,4 +1,4 @@
-# Easynodes 1.0.0
+# Easynodes 1.0.1
 
 ## Installation
 ```bash
