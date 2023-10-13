@@ -1,4 +1,4 @@
-# Easynodes
+# Easynodes 1.0.0
 
 ## Installation
 Warning: This package is not yet published to npm. This is a placeholder for when it is published.
@@ -297,3 +297,89 @@ easynodes.files.setPermissions.async("path", permissions, function(){
     console.log("Done");
 });
 ```
+
+### Dataquest
+My database module dataquest is integrated in easynodes you can use it as this:
+<br>
+To create a database use this:
+```js
+var database = easynodes.dataquest.createDatabase();
+```
+To load a database use this:
+```js
+var database = easynodes.dataquest.load("path");
+```
+To save a database use this:
+```js
+easynodes.dataquest.save("path", database);
+```
+To set an item in the database use this:
+```js
+database.set("item", "value");
+```
+To get an item in the database use this:
+```js
+var value = database.get("item");
+```
+To delete an item in the database use this:
+```js
+database.delete("item");
+```
+<strong>This is for dataquest 1.0.0</strong>
+
+### Line-current
+My module line-current which is for getting the current line in the terminal is integrated in easynodes you can use it as this:
+<br><br>
+To get the current line use this (an async function is required for that in order to use await to wait for the current line to be gotten):
+```js
+var run = async function() {
+    var currentLine = await easynodes.line_current.get();
+    console.log(currentLine);
+    //Will return {"current-line": %current line%, "processtime": %time it took to get current line%}
+}
+run();
+//If you put any code that edits the console here everything will fall appart.
+```
+To get the current line formatted use this (async function is also required for that):
+```js
+var run = async function() {
+    var currentLine = await easynodes.line_current.get(true);
+    console.log(currentLine);
+    //Will return:
+    //{
+    //    "current-line": %current line%,
+    //    "processtime": %time it took to get current line%,
+    //}
+}
+run();
+//If you put any code that edits the console here everything will fall appart.
+```
+To just get the current line use this (async function is also required for that):
+```js
+var run = async function() {
+    var currentLine = await easynodes.line_current.get();
+    console.log(JSON.parse(currentLine)["current-line"]);
+    //Will return %current line%
+}
+run();
+//If you put any code that edits the console here everything will fall appart.
+```
+<strong>This is for line-current 1.0.0</strong>
+
+## Credits
+- Credit to me (willmil11)
+- Credit to the ws module creator(s) used for easynodes websocket features
+- Credit to the fs-extra module creator(s) used for easynodes filesystem features
+
+## Goals
+- [ ] Add encryption features
+
+## Suggestions
+If you have any suggestions please open an issue on github.
+
+## Bugs
+If you find any bugs please open an issue on github.
+
+## Changelog
+### 1.0.0
+Initial release
