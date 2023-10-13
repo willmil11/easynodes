@@ -21,7 +21,7 @@ Then here's how to use the package.
 ### Logging
 Here's how to change the custom prefix:
 ```js
-easynodes.logging.changeprefix("new-prefix")
+easynodes.logging.changeprefix(new-prefix)
 ```
 Here's how to disable verbose
 ```js

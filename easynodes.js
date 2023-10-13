@@ -265,7 +265,7 @@ module.exports = {
                                 }
                             },
                             "abort": function () {
-                                response.abort();
+                                response.destroy();
                             },
                             "statusCode": response.statusCode,
                             "removeEvents": function () {
