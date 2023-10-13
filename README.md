@@ -1,7 +1,6 @@
 # Easynodes 1.0.0
 
 ## Installation
-Warning: This package is not yet published to npm. This is a placeholder for when it is published.
 ```bash
 npm install easynodes
 ```
@@ -381,5 +380,7 @@ If you have any suggestions please open an issue on github.
 If you find any bugs please open an issue on github.
 
 ## Changelog
+### 1.0.1
+- Little fix in the readme
 ### 1.0.0
-Initial release
+- Initial release
